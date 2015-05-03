@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".Home">
+
+    <item android:id="@+id/action_list_pessoa"
+        android:title="@string/action_list_pessoa"
+        android:icon="@drawable/ic_users"
+        android:orderInCategory="20"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_list_evento"
+        android:title="@string/action_list_evento"
+        android:icon="@drawable/ic_action_view_as_list"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+</menu>
