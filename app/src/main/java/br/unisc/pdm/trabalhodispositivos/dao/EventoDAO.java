@@ -14,7 +14,6 @@ import java.util.List;
 import br.unisc.pdm.trabalhodispositivos.database.DadosContract;
 import br.unisc.pdm.trabalhodispositivos.database.DadosDbHelper;
 import br.unisc.pdm.trabalhodispositivos.vo.EventoVO;
-import br.unisc.pdm.trabalhodispositivos.vo.PessoaVO;
 
 /**
  * Created by Thiago Cardoso on 03/05/2015.
@@ -45,8 +44,8 @@ public class EventoDAO {
 
         ContentValues dadosEvento = new ContentValues();
         dadosEvento.put(DadosContract.Evento.NOME, v.getNome());
-      //  dadosEvento.put(DadosContract.Evento.DATA_INICIO, v.getData_inicio().toString());
-       // dadosEvento.put(DadosContract.Evento.DATA_FIM, v.getData_inicio().toString());
+        dadosEvento.put(DadosContract.Evento.DATA_INICIO, v.getData_inicio().toString());
+        dadosEvento.put(DadosContract.Evento.DATA_FIM, v.getData_inicio().toString());
 
         try {
             long newEventoId = database.insert(
@@ -90,7 +89,9 @@ public class EventoDAO {
         EventoVO evento = new EventoVO();
         evento.setId_evento(cursor.getInt(0));
         evento.setNome(cursor.getString(1));
-        //evento.setData_inicio(cursor.getLong(1));
+        //Date data_inicio = new Date(cursor.getLong(2));
+       // evento.setData_inicio(data_inicio);
+
         return evento;
     }
 

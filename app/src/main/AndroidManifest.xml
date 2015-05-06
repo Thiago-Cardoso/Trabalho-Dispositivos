@@ -59,6 +59,10 @@
             android:name="br.unisc.pdm.trabalhodispositivos.VerEvento"
             android:label="@string/title_activity_ver_evento" >
         </activity>
+        <activity
+            android:name="br.unisc.pdm.trabalhodispositivos.spinner"
+            android:label="@string/title_activity_spinner" >
+        </activity>
     </application>
 
 </manifest>

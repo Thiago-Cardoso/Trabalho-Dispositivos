@@ -13,6 +13,7 @@ import java.util.List;
 
 import br.unisc.pdm.trabalhodispositivos.database.DadosContract;
 import br.unisc.pdm.trabalhodispositivos.database.DadosDbHelper;
+import br.unisc.pdm.trabalhodispositivos.vo.EventoVO;
 import br.unisc.pdm.trabalhodispositivos.vo.PessoaVO;
 
 /**
@@ -100,6 +101,13 @@ public class PessoaDAO {
         return pessoa;
     }
 
+    private EventoVO cursorToEvento(Cursor cursor) {
+        EventoVO evento = new EventoVO();
+        evento.setId_evento(cursor.getInt(0));
+        evento.setNome(cursor.getString(1));
+        return evento;
+    }
+
     public PessoaVO getPessoaById(int id) {
 
 
@@ -155,4 +163,22 @@ public class PessoaDAO {
             ex.printStackTrace();
         }
     }
+
+    public List<EventoVO> getAllEventos() {
+        List<EventoVO> eventos = new ArrayList<EventoVO>();
+
+        Cursor cursor = database.query(DadosContract.Evento.TABLE_NAME,
+                colunas, null, null, null, null, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            EventoVO evento = cursorToEvento(cursor);
+            eventos.add(evento);
+            cursor.moveToNext();
+        }
+        // make sure to close the cursor
+        cursor.close();
+        return eventos;
+    }
+
 }

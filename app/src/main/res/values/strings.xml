@@ -33,4 +33,6 @@
     <string name="change_date">Change the date</string>
     <string name="action_new_evento">Novo Evento</string>
     <string name="action_edit_evento">Editar Evento</string>
+    <string name="spinner_title">Evento</string>
+    <string name="title_activity_spinner">spinner</string>
 </resources>

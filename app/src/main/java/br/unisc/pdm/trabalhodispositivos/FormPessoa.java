@@ -6,18 +6,27 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.List;
 
 import br.unisc.pdm.designcrud.R;
+import br.unisc.pdm.trabalhodispositivos.dao.EventoDAO;
 import br.unisc.pdm.trabalhodispositivos.dao.PessoaDAO;
+import br.unisc.pdm.trabalhodispositivos.vo.EventoVO;
 import br.unisc.pdm.trabalhodispositivos.vo.PessoaVO;
 
 
-public class FormPessoa extends ActionBarActivity implements PessoaTela {
+public class FormPessoa extends ActionBarActivity implements PessoaTela ,AdapterView.OnItemSelectedListener{
     private PessoaDAO dao;
+    private EventoDAO daoEvent;
+    // Spinner element
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +40,15 @@ public class FormPessoa extends ActionBarActivity implements PessoaTela {
         dao = new PessoaDAO(this);
         dao.open();
 
+        // Spinner element
+        spinner = (Spinner) findViewById(R.id.spinner_p);
+
+        // Spinner click listener
+        spinner.setOnItemSelectedListener(this);
+
+        // Loading spinner data from database
+        loadSpinnerData();
+
 
         if (id > 0) {
             if (PessoaVO.STORE_MODE.equals("DB")) {
@@ -38,6 +56,22 @@ public class FormPessoa extends ActionBarActivity implements PessoaTela {
                 populaTela(p);
             }
         }
+    }
+
+    private void loadSpinnerData() {
+        daoEvent = new EventoDAO(this);
+        daoEvent.open();
+        List<EventoVO> lables = daoEvent.getAllEventos();
+
+        // Creating adapter for spinner
+        ArrayAdapter<EventoVO> dataAdapter = new ArrayAdapter<EventoVO>(this,
+                android.R.layout.simple_spinner_item, lables);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // attaching data adapter to spinner
+        spinner.setAdapter(dataAdapter);
     }
 
     public void populaTela(PessoaVO p){
@@ -113,5 +147,20 @@ public class FormPessoa extends ActionBarActivity implements PessoaTela {
         populaTela(values.get(0));
         Log.d("WBS", values.toString());
         Toast.makeText(this,"Voltou.. populando!",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a spinner item
+        String label = parent.getItemAtPosition(position).toString();
+
+        // Showing selected spinner item
+        Toast.makeText(parent.getContext(), "You selected: " + label,
+                Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

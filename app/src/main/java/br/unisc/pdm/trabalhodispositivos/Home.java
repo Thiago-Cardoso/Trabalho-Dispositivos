@@ -34,6 +34,9 @@ public class Home extends ActionBarActivity {
         if (id == R.id.action_list_pessoa) {
             startActivity(new Intent(this,ListaPessoa.class));
         }
+        if (id == R.id.action_list_spinner) {
+            startActivity(new Intent(this,spinner.class));
+        }
 
         if (id == R.id.action_list_evento) {
             startActivity(new Intent(this,ListaEvento.class));

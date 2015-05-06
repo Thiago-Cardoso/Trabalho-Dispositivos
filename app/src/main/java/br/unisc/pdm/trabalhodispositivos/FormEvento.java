@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import br.unisc.pdm.designcrud.R;
@@ -26,7 +27,6 @@ import br.unisc.pdm.trabalhodispositivos.vo.PessoaVO;
 
 public class FormEvento extends ActionBarActivity implements EventoTela
 {
-
     private EventoDAO dao;
     private TextView mDateDisplay,mDateDisplay_fim;
     private Button mPickDate,mPickDate_fim;
@@ -78,6 +78,7 @@ public class FormEvento extends ActionBarActivity implements EventoTela
                 showDialog(DATE_DIALOG_ID);
             }
         });
+
 
         // get the current date
         final Calendar c = Calendar.getInstance();
@@ -182,12 +183,23 @@ public class FormEvento extends ActionBarActivity implements EventoTela
         if(edit_id_evento.getText().toString().length() > 0)
             evento.setId_evento(Integer.parseInt(edit_id_evento.getText().toString()));
         evento.setNome(edit_nome_evento.getText().toString());
+        Date data_inicio = Calendar.getInstance().getTime();
+        java.text.SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
+
+        String formattedCurrentDate_inicio = simpleDateFormat.format(data_inicio);
+        Date data_fim = Calendar.getInstance().getTime();
+        simpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        String formattedCurrentDate_fim = simpleDateFormat.format(data_fim);
+
+        evento.setData_inicio(data_inicio);
 
         if(EventoVO.STORE_MODE.equals("DB")){
-            if(evento.getId_evento() > 0)
+            if(evento.getId_evento() > 0) {
                 dao.updateEvento(evento);
-            else
+            }else {
+                //Toast.makeText(getApplicationContext(), formattedCurrentDate+"data", Toast.LENGTH_SHORT).show();
                 dao.insertEvento(evento);
+            }
         }
         finish();
 
