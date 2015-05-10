@@ -35,4 +35,5 @@
     <string name="action_edit_evento">Editar Evento</string>
     <string name="spinner_title">Evento</string>
     <string name="title_activity_spinner">spinner</string>
+    <string name="title_activity_lista_pessoa_evento">ListaPessoaEvento</string>
 </resources>

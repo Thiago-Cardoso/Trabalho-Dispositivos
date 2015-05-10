@@ -34,29 +34,42 @@ public class DadosDbHelper extends SQLiteOpenHelper{
 
 
     /**
+     * Criação da tabela PESSOAEVENTO
+     */
+    private static final String SQL_CREATE_TABLE_PESSOAEVENTO =
+            "CREATE TABLE " + DadosContract.Pessoa.TABLE_NAME + " (" +
+                    " FOREIGN KEY (" + DadosContract.PessoaEvento.FK_EVENTO_ID + ") " +
+                    "REFERENCES " + DadosContract.Evento.TABLE_NAME + " (" +
+                    DadosContract.Evento._ID + ") "+
+                    " FOREIGN KEY (" + DadosContract.PessoaEvento.FK_PESSOA_ID + ") " +
+                    "REFERENCES " + DadosContract.Pessoa.TABLE_NAME + " (" +
+                    DadosContract.Pessoa._ID + ") "+
+                    " )";
+
+    /**
      * Criação da tabela Evento
      */
          private static final String SQL_CREATE_TABLE_EVENTO =
             "CREATE TABLE " + DadosContract.Evento.TABLE_NAME + " (" +
                     DadosContract.Evento._ID + " INTEGER PRIMARY KEY, " +
                     DadosContract.Evento.NOME + TEXT_TYPE + COMMA_SEP +
-                    DadosContract.Evento.ENCONTRO_ID + " INT " + COMMA_SEP +
                     DadosContract.Evento.DATA_INICIO + TEXT_TYPE + COMMA_SEP +
                     DadosContract.Evento.DATA_FIM + TEXT_TYPE + COMMA_SEP +
-                    " FOREIGN KEY (" + DadosContract.Evento.ENCONTRO_ID + ") " +
-                    "REFERENCES " + DadosContract.Encontro.TABLE_NAME + " (" +
                     DadosContract.Encontro._ID + ") "+
                 " )";
 
     /**
-     * Criação da tabela Evento
+     * Criação da tabela Encontro
      */
     private static final String SQL_CREATE_TABLE_ENCONTRO =
             "CREATE TABLE " + DadosContract.Encontro.TABLE_NAME + " (" +
                     DadosContract.Encontro._ID + " INTEGER PRIMARY KEY, " +
+                    DadosContract.Encontro.EVENTO_ID + " INT " + COMMA_SEP +
                     DadosContract.Encontro.DATA + TEXT_TYPE + COMMA_SEP +
                     DadosContract.Encontro.HORA + TEXT_TYPE + COMMA_SEP +
                     DadosContract.Encontro.DESCRICAO + TEXT_TYPE +
+                    " FOREIGN KEY (" + DadosContract.Encontro.EVENTO_ID + ") " +
+                    "REFERENCES " + DadosContract.Evento.TABLE_NAME + " (" +
                     " )";
 
     /**

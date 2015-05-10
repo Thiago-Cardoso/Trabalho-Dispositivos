@@ -63,6 +63,10 @@
             android:name="br.unisc.pdm.trabalhodispositivos.spinner"
             android:label="@string/title_activity_spinner" >
         </activity>
+        <activity
+            android:name="br.unisc.pdm.trabalhodispositivos.ListaPessoaEvento"
+            android:label="@string/title_activity_lista_pessoa_evento" >
+        </activity>
     </application>
 
 </manifest>

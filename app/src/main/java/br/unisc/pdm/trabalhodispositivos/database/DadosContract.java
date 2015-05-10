@@ -23,6 +23,16 @@ public final class DadosContract {
         public final static String EVENTO_ID = "evento_id";
     }
 
+
+    /**
+     * Tabela PessoaEvento
+     */
+    public static abstract class PessoaEvento implements BaseColumns {
+        public final static String TABLE_NAME = "PESSOAEVENTO";
+        public final static String FK_EVENTO_ID = "evento_id";
+        public final static String FK_PESSOA_ID = "pessoa_id";
+    }
+
     /**
      * Tabela encontro
      */
@@ -31,6 +41,7 @@ public final class DadosContract {
         public final static String DATA = "data";
         public final static String HORA = "hora";
         public final static String DESCRICAO = "descricao";
+        public final static String EVENTO_ID = "evento_id";
     }
 
     /**
@@ -41,7 +52,6 @@ public final class DadosContract {
         public final static String NOME = "nome";
         public final static String DATA_INICIO = "data_inicio";
         public final static String DATA_FIM = "data_fim";
-        public final static String ENCONTRO_ID = "encontro_id";
     }
 
     /**

@@ -11,16 +11,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.Hashtable;
 import java.util.List;
 
 import br.unisc.pdm.designcrud.R;
 import br.unisc.pdm.trabalhodispositivos.dao.PessoaDAO;
 import br.unisc.pdm.trabalhodispositivos.vo.PessoaVO;
+import br.unisc.pdm.trabalhodispositivos.vo.Variaveis;
 
 
 public class ListaPessoa extends ActionBarActivity implements PessoaTela {
     private PessoaDAO dao;
-
+    private Hashtable hashPessoa;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,14 +51,35 @@ public class ListaPessoa extends ActionBarActivity implements PessoaTela {
 
                     @Override
                     public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                        if(!Variaveis.VENHO_TELA_EVENTO) {
 
-                        PessoaVO p = (PessoaVO) lista.getItemAtPosition(position);
 
-                        Intent intent = new Intent(getBaseContext(),VerPessoa.class);
-                        intent.putExtra("ID",p.getId_pessoa());
-                        Toast.makeText(getBaseContext(), "Selecionado "+p.getNome(), Toast.LENGTH_SHORT).show();
+                            PessoaVO p = (PessoaVO) lista.getItemAtPosition(position);
 
-                        startActivity(intent);
+
+                            Intent intent = new Intent(getBaseContext(), VerPessoa.class);
+                            intent.putExtra("ID", p.getId_pessoa());
+                            Toast.makeText(getBaseContext(), "Selecionado " + p.getNome(), Toast.LENGTH_SHORT).show();
+
+                            startActivity(intent);
+
+                        }else{
+
+
+                            PessoaVO p = (PessoaVO) lista.getItemAtPosition(position);
+
+
+                            Intent intent = new Intent(getBaseContext(), VerPessoa.class);
+                            intent.putExtra("ID", p.getId_pessoa());
+                            Toast.makeText(getBaseContext(), "Selecionado " + p.getNome(), Toast.LENGTH_SHORT).show();
+                            if(hashPessoa == null)
+                            {
+                                hashPessoa =new Hashtable() ;
+                            }
+                            hashPessoa.put("ID", p.getId_pessoa());
+                           // startActivity(intent);
+
+                        }
 
             }
         });

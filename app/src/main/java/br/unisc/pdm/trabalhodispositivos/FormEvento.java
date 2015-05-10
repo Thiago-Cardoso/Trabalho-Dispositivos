@@ -24,6 +24,7 @@ import br.unisc.pdm.trabalhodispositivos.dao.EventoDAO;
 import br.unisc.pdm.trabalhodispositivos.dao.PessoaDAO;
 import br.unisc.pdm.trabalhodispositivos.vo.EventoVO;
 import br.unisc.pdm.trabalhodispositivos.vo.PessoaVO;
+import br.unisc.pdm.trabalhodispositivos.vo.Variaveis;
 
 public class FormEvento extends ActionBarActivity implements EventoTela
 {
@@ -157,6 +158,12 @@ public class FormEvento extends ActionBarActivity implements EventoTela
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void AdicionarPessoa(View view)
+    {
+        Variaveis.VENHO_TELA_EVENTO = true;
+        startActivity(new Intent(this,ListaPessoa.class));
     }
 
     @Override
