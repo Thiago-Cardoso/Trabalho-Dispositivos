@@ -162,8 +162,7 @@ public class FormEvento extends ActionBarActivity implements EventoTela
 
     public void AdicionarPessoa(View view)
     {
-        Variaveis.VENHO_TELA_EVENTO = true;
-        startActivity(new Intent(this,ListaPessoa.class));
+       startActivity(new Intent(this,ListaPessoaEvento.class));
     }
 
     @Override
@@ -198,14 +197,15 @@ public class FormEvento extends ActionBarActivity implements EventoTela
         simpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
         String formattedCurrentDate_fim = simpleDateFormat.format(data_fim);
 
-        evento.setData_inicio(data_inicio);
+        evento.setData_inicio(data_inicio.toString());
+        evento.setData_fim(data_fim.toString());
 
         if(EventoVO.STORE_MODE.equals("DB")){
             if(evento.getId_evento() > 0) {
                 dao.updateEvento(evento);
             }else {
-                //Toast.makeText(getApplicationContext(), formattedCurrentDate+"data", Toast.LENGTH_SHORT).show();
                 dao.insertEvento(evento);
+                //Toast.makeText(getApplicationContext(), formattedCurrentDate_inicio+"data", Toast.LENGTH_SHORT).show();
             }
         }
         finish();

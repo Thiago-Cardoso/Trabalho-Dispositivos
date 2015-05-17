@@ -8,12 +8,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.unisc.pdm.trabalhodispositivos.database.DadosContract;
 import br.unisc.pdm.trabalhodispositivos.database.DadosDbHelper;
 import br.unisc.pdm.trabalhodispositivos.vo.EventoVO;
+import br.unisc.pdm.trabalhodispositivos.vo.PessoaVO;
 
 /**
  * Created by Thiago Cardoso on 03/05/2015.
@@ -89,9 +91,6 @@ public class EventoDAO {
         EventoVO evento = new EventoVO();
         evento.setId_evento(cursor.getInt(0));
         evento.setNome(cursor.getString(1));
-        //Date data_inicio = new Date(cursor.getLong(2));
-       // evento.setData_inicio(data_inicio);
-
         return evento;
     }
 
@@ -124,6 +123,14 @@ public class EventoDAO {
             return null;
 
     }
+
+    public void deletevento(EventoVO evento) {
+        long id = evento.getId_evento();
+        Log.d("DESIGNCRUD", "evento deleted with id: " + id);
+        database.delete(DadosContract.Evento.TABLE_NAME, DadosContract.Evento._ID + " = " + id, null);
+        Toast.makeText(this.context, "evento deletado com sucesso: " + id, Toast.LENGTH_SHORT).show();
+    }
+
 
     public void updateEvento(EventoVO v) {
         ContentValues dadosEvento= new ContentValues();

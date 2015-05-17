@@ -2,6 +2,8 @@ package br.unisc.pdm.trabalhodispositivos.database;
 
 import android.provider.BaseColumns;
 
+import java.util.Date;
+
 /**
  * Created by Thiago Cardoso on 01/05/2015.
  */

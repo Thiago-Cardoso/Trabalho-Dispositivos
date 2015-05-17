@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.List;
@@ -50,6 +51,19 @@ public class VerEvento extends ActionBarActivity implements EventoTela{
       //  ve_data_inicio.setText(v.getData_inicio().toString());
         //ve_data_fim.setText(v.getData_fim().toString());
     }
+
+
+    public void ApagarClick (View view)
+    {
+        Log.d("EXCLUIR", "buscou o id " + v.getId_evento());
+        if(v.getId_evento() > 0)
+        {
+            dao.deleteEvento(v);
+            populaTela();
+            finish();
+        }
+    }
+
 
 
     @Override

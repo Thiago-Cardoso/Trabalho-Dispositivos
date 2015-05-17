@@ -12,8 +12,8 @@ public class EventoVO {
 
     private int id_evento;
     private String nome;
-    private Date data_inicio;
-    private Date data_fim;
+    private String data_inicio;
+    private String data_fim;
 
 
     public int getId_evento() {
@@ -22,6 +22,7 @@ public class EventoVO {
 
     public void setId_evento(int id_evento) {
         this.id_evento = id_evento;
+        Variaveis.evento_fk = id_evento;
     }
 
     public String getNome() {
@@ -33,19 +34,19 @@ public class EventoVO {
     }
 
 
-    public Date getData_inicio() {
+    public String getData_inicio() {
         return data_inicio;
     }
 
-    public void setData_inicio(Date data_inicio) {
+    public void setData_inicio(String data_inicio) {
         this.data_inicio = data_inicio;
     }
 
-    public Date getData_fim() {
+    public String getData_fim() {
         return data_fim;
     }
 
-    public void setData_fim(Date data_fim) {
+    public void setData_fim(String data_fim) {
         this.data_fim = data_fim;
     }
 

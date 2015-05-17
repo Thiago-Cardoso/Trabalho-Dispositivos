@@ -8,14 +8,15 @@
         android:orderInCategory="20"
         app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/action_list_spinner"
-        android:title="Spinner"
-        android:icon="@drawable/ic_users"
-        android:orderInCategory="20"
-        app:showAsAction="ifRoom" />
-
     <item android:id="@+id/action_list_evento"
         android:title="@string/action_list_evento"
+        android:orderInCategory="22"
+        android:icon="@drawable/ic_action_view_as_list"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_form_encontro"
+        android:title="@string/action_form_encontro"
+        android:orderInCategory="22"
         android:icon="@drawable/ic_action_view_as_list"
         app:showAsAction="ifRoom" />
 

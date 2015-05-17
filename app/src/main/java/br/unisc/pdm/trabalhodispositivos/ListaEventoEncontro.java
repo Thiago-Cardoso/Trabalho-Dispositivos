@@ -3,7 +3,6 @@ package br.unisc.pdm.trabalhodispositivos;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,19 +15,15 @@ import java.util.List;
 
 import br.unisc.pdm.designcrud.R;
 import br.unisc.pdm.trabalhodispositivos.dao.EventoDAO;
-import br.unisc.pdm.trabalhodispositivos.dao.PessoaDAO;
 import br.unisc.pdm.trabalhodispositivos.vo.EventoVO;
-import br.unisc.pdm.trabalhodispositivos.vo.PessoaVO;
 
-public class ListaEvento extends ActionBarActivity implements EventoTela {
+public class ListaEventoEncontro extends ActionBarActivity implements EventoTela{
     private EventoDAO dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_evento);
-
-        popularList();
+        setContentView(R.layout.activity_lista_evento_encontro);
     }
 
     @Override
@@ -44,39 +39,7 @@ public class ListaEvento extends ActionBarActivity implements EventoTela {
         }
     }
 
-    public void popularView(List<EventoVO> values){
-        ArrayAdapter<EventoVO> adapter = new ArrayAdapter<EventoVO>(this, android.R.layout.simple_list_item_1, values);
-
-        final ListView lista = (ListView) findViewById(R.id.lista_eventos);
-
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-
-                EventoVO v = (EventoVO) lista.getItemAtPosition(position);
-
-                Intent intent = new Intent(getBaseContext(),VerEvento.class);
-                intent.putExtra("ID", v.getId_evento());
-                if(v.getData_inicio() != null)
-                {
-                    Toast.makeText(getBaseContext(), "buscou a data inicioo " + v.getData_inicio(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getBaseContext(), "buscou a data fim " + v.getData_fim(), Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getBaseContext(), "buscou a data i " + v.getData_inicio(), Toast.LENGTH_SHORT).show();
-                }
-                Toast.makeText(getBaseContext(), "Selecionado " + v.getNome(), Toast.LENGTH_SHORT).show();
-
-                startActivity(intent);
-
-            }
-        });
-
-
-        lista.setAdapter(adapter);
-    }
-
-    private void popularListFromDB(){
+    private void popularListFromDB() {
         dao = new EventoDAO(this);
         dao.open();
 
@@ -84,10 +47,11 @@ public class ListaEvento extends ActionBarActivity implements EventoTela {
         popularView(values);
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_lista_evento, menu);
+        getMenuInflater().inflate(R.menu.menu_lista_evento_encontro, menu);
         return true;
     }
 
@@ -110,4 +74,27 @@ public class ListaEvento extends ActionBarActivity implements EventoTela {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void popularView(List<EventoVO> values) {
+        ArrayAdapter<EventoVO> adapter = new ArrayAdapter<EventoVO>(this, android.R.layout.simple_list_item_1, values);
+
+        final ListView lista = (ListView) findViewById(R.id.lista_eventos_encontro);
+
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+
+                EventoVO v = (EventoVO) lista.getItemAtPosition(position);
+
+                Intent intent = new Intent(getBaseContext(),VerEvento.class);
+                intent.putExtra("ID", v.getId_evento());
+                Toast.makeText(getBaseContext(), "Selecionado " + v.getNome(), Toast.LENGTH_SHORT).show();
+
+                startActivity(intent);
+
+            }
+        });
+        lista.setAdapter(adapter);
+    }
 }

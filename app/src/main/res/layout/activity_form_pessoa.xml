@@ -1,10 +1,25 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-tools:context="br.unisc.pdm.trabalhodispositivos.FormPessoa">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="br.unisc.pdm.trabalhodispositivos.FormPessoa">
+
+    <FrameLayout
+        android:id="@+id/FrameLayoutFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <Button android:text="Tirar Foto"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:onClick="TirarFoto"
+            android:background="@drawable/usuario_sem_foto"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
     <TextView
         android:text="@string/label_id"
         android:layout_width="wrap_content"

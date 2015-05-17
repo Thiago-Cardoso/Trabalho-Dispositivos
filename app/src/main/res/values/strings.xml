@@ -23,8 +23,8 @@
     <string name="label_idade">Idade</string>
     <string name="label_matricula">Matricula</string>
     <string name="action_excluir_pessoa">Excluir</string>
-    <string name="title_activity_form_evento">FormEvento</string>
-    <string name="title_activity_lista_evento">ListaEvento</string>
+    <string name="title_activity_form_evento">Evento</string>
+    <string name="title_activity_lista_evento">Lista de eventos</string>
     <string name="title_activity_ver_evento">VerEvento</string>
     <string name="label_data_inicio">Data Inicio</string>
     <string name="label_data_fim">Data fim</string>
@@ -36,4 +36,8 @@
     <string name="spinner_title">Evento</string>
     <string name="title_activity_spinner">spinner</string>
     <string name="title_activity_lista_pessoa_evento">ListaPessoaEvento</string>
+    <string name="title_activity_lista_evento_encontro">ListaEventoEncontro</string>
+    <string name="action_list_encontro">Lista Encontros</string>
+    <string name="title_activity_form_encontro">Encontros</string>
+    <string name="action_form_encontro">Encontros</string>
 </resources>

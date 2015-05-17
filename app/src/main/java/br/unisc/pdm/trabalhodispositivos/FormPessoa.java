@@ -1,6 +1,11 @@
 package br.unisc.pdm.trabalhodispositivos;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +18,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import br.unisc.pdm.designcrud.R;
@@ -22,16 +31,30 @@ import br.unisc.pdm.trabalhodispositivos.vo.EventoVO;
 import br.unisc.pdm.trabalhodispositivos.vo.PessoaVO;
 
 
-public class FormPessoa extends ActionBarActivity implements PessoaTela ,AdapterView.OnItemSelectedListener{
+public class FormPessoa extends ActionBarActivity implements PessoaTela ,AdapterView.OnItemSelectedListener,BlankFragment.OnFragmentInteractionListener{
     private PessoaDAO dao;
     private EventoDAO daoEvent;
     // Spinner element
     Spinner spinner;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    private Bundle foto;
+    private BlankFragment fragment;
+    static String path;       //string com caminho da imagem salva no filesystem do device
+    private File arquivo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_pessoa);
+
+        fragment = new BlankFragment();
+
+        android.app.FragmentManager fm = this.getFragmentManager();
+
+        FragmentTransaction _trans = fm.beginTransaction();
+        _trans.replace(R.id.FrameLayoutFragment, fragment);
+        _trans.commit();
+
 
         Intent intent = getIntent();
         int id = intent.getIntExtra("ID", 0);
@@ -55,6 +78,58 @@ public class FormPessoa extends ActionBarActivity implements PessoaTela ,Adapter
                 PessoaVO p = dao.getPessoaById(id);
                 populaTela(p);
             }
+        }
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+
+
+    }
+
+    public void TirarFoto(View view)
+    {
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            foto = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) foto.get("data");
+
+            fragment.SetImage(imageBitmap);
+
+            try {
+
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                imageBitmap.compress(Bitmap.CompressFormat.JPEG, 40, bytes);
+
+                arquivo = new File(Environment.getExternalStorageDirectory()
+                        + File.separator + "ft.jpg");
+
+                if (arquivo.exists())
+                {
+                    arquivo.delete();
+                }
+
+                arquivo.createNewFile();
+
+                FileOutputStream fo = new FileOutputStream(arquivo);
+                fo.write(bytes.toByteArray());
+                fo.close();
+
+
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
@@ -161,6 +236,11 @@ public class FormPessoa extends ActionBarActivity implements PessoaTela ,Adapter
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }

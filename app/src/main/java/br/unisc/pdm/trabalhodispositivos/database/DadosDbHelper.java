@@ -3,6 +3,7 @@ package br.unisc.pdm.trabalhodispositivos.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.view.View;
 
 /**
  * Created by Thiago Cardoso on 01/05/2015.
@@ -37,10 +38,12 @@ public class DadosDbHelper extends SQLiteOpenHelper{
      * Criação da tabela PESSOAEVENTO
      */
     private static final String SQL_CREATE_TABLE_PESSOAEVENTO =
-            "CREATE TABLE " + DadosContract.Pessoa.TABLE_NAME + " (" +
+            "CREATE TABLE " + DadosContract.PessoaEvento.TABLE_NAME + " (" +
+                   DadosContract.PessoaEvento.FK_EVENTO_ID + " INTEGER , "+
+                    DadosContract.PessoaEvento.FK_PESSOA_ID + " INTEGER ,"+
                     " FOREIGN KEY (" + DadosContract.PessoaEvento.FK_EVENTO_ID + ") " +
                     "REFERENCES " + DadosContract.Evento.TABLE_NAME + " (" +
-                    DadosContract.Evento._ID + ") "+
+                    DadosContract.Evento._ID + ") ,"+
                     " FOREIGN KEY (" + DadosContract.PessoaEvento.FK_PESSOA_ID + ") " +
                     "REFERENCES " + DadosContract.Pessoa.TABLE_NAME + " (" +
                     DadosContract.Pessoa._ID + ") "+
@@ -54,9 +57,8 @@ public class DadosDbHelper extends SQLiteOpenHelper{
                     DadosContract.Evento._ID + " INTEGER PRIMARY KEY, " +
                     DadosContract.Evento.NOME + TEXT_TYPE + COMMA_SEP +
                     DadosContract.Evento.DATA_INICIO + TEXT_TYPE + COMMA_SEP +
-                    DadosContract.Evento.DATA_FIM + TEXT_TYPE + COMMA_SEP +
-                    DadosContract.Encontro._ID + ") "+
-                " )";
+                    DadosContract.Evento.DATA_FIM + TEXT_TYPE +
+                    " )";
 
     /**
      * Criação da tabela Encontro
@@ -67,10 +69,11 @@ public class DadosDbHelper extends SQLiteOpenHelper{
                     DadosContract.Encontro.EVENTO_ID + " INT " + COMMA_SEP +
                     DadosContract.Encontro.DATA + TEXT_TYPE + COMMA_SEP +
                     DadosContract.Encontro.HORA + TEXT_TYPE + COMMA_SEP +
-                    DadosContract.Encontro.DESCRICAO + TEXT_TYPE +
+                    DadosContract.Encontro.DESCRICAO + TEXT_TYPE + COMMA_SEP +
                     " FOREIGN KEY (" + DadosContract.Encontro.EVENTO_ID + ") " +
                     "REFERENCES " + DadosContract.Evento.TABLE_NAME + " (" +
-                    " )";
+                    DadosContract.Evento._ID + ") "+
+            " )";
 
     /**
      * Criação da tabela intermediaria PessoaEncontro
@@ -108,6 +111,8 @@ public class DadosDbHelper extends SQLiteOpenHelper{
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+
+
     @Override
     public void onOpen(SQLiteDatabase db) {
         super.onOpen(db);
@@ -127,7 +132,7 @@ public class DadosDbHelper extends SQLiteOpenHelper{
         db.execSQL(SQL_CREATE_TABLE_EVENTO);
         db.execSQL(SQL_CREATE_TABLE_ENCONTRO);
         db.execSQL(SQL_CREATE_TABLE_PESSOAENCONTRO);
-        //db.execSQL(SQL_DELETE_TABLE_PESSOAENCONTRO);
+        db.execSQL(SQL_CREATE_TABLE_PESSOAEVENTO);
        // db.execSQL(SQL_DELETE_TABLE_EVENTO);
        // db.execSQL(SQL_DELETE_TABLE_PESSOA);
     }
@@ -139,6 +144,7 @@ public class DadosDbHelper extends SQLiteOpenHelper{
         db.execSQL(SQL_DELETE_TABLE_PESSOAENCONTRO);
         db.execSQL(SQL_DELETE_TABLE_EVENTO);
         db.execSQL(SQL_DELETE_TABLE_PESSOA);
+
         onCreate(db);
     }
 
