@@ -3,6 +3,7 @@ package br.unisc.pdm.trabalhodispositivos;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -41,6 +42,7 @@ public class FormPessoa extends ActionBarActivity implements PessoaTela ,Adapter
     private BlankFragment fragment;
     static String path;       //string com caminho da imagem salva no filesystem do device
     private File arquivo;
+    byte[] byteArray=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,9 +105,13 @@ public class FormPessoa extends ActionBarActivity implements PessoaTela ,Adapter
             foto = data.getExtras();
             Bitmap imageBitmap = (Bitmap) foto.get("data");
 
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byteArray = stream.toByteArray();
+
             fragment.SetImage(imageBitmap);
 
-            try {
+            /*try {
 
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                 imageBitmap.compress(Bitmap.CompressFormat.JPEG, 40, bytes);
@@ -129,7 +135,7 @@ public class FormPessoa extends ActionBarActivity implements PessoaTela ,Adapter
             catch (IOException e) {
                 e.printStackTrace();
             }
-
+*/
         }
     }
 
@@ -150,41 +156,51 @@ public class FormPessoa extends ActionBarActivity implements PessoaTela ,Adapter
     }
 
     public void populaTela(PessoaVO p){
-        EditText edit_id = (EditText) findViewById(R.id.edit_id);
+    //    EditText edit_id = (EditText) findViewById(R.id.edit_id);
         EditText edit_nome = (EditText) findViewById(R.id.edit_nome);
         EditText edit_email = (EditText) findViewById(R.id.edit_email);
         EditText edit_idade = (EditText) findViewById(R.id.edit_idade);
         EditText edit_matricula = (EditText) findViewById(R.id.edit_matricula);
-        edit_id.setText(String.valueOf(p.getId_pessoa()));
+       // edit_id.setText(String.valueOf(p.getId_pessoa()));
         edit_nome.setText(p.getNome());
         edit_email.setText(p.getEmail());
         edit_idade.setText(p.getIdade());
         edit_matricula.setText(p.getMatricula());
+        //if(p.getFoto()!=null) {
+          //  Bitmap bmp = BitmapFactory.decodeByteArray(p.getFoto(), 0, p.getFoto().length);
+           // if(bmp!=null){
+           //     fragment.SetImage(bmp);
 
+           // }
+      //  }
     }
 
     public void insertOrEditPerson(){
         //Buscando dados de entrada digitados pelo usuário
-        EditText edit_id = (EditText) findViewById(R.id.edit_id);
+      //  EditText edit_id = (EditText) findViewById(R.id.edit_id);
         EditText edit_nome = (EditText) findViewById(R.id.edit_nome);
         EditText edit_email = (EditText) findViewById(R.id.edit_email);
         EditText edit_idade = (EditText) findViewById(R.id.edit_idade);
         EditText edit_matricula = (EditText) findViewById(R.id.edit_matricula);
 
         PessoaVO person = new PessoaVO();
-        if(edit_id.getText().toString().length() > 0)
-            person.setId_pessoa(Integer.parseInt(edit_id.getText().toString()));
+      //  if(edit_id.getText().toString().length() > 0)
+         //   person.setId_pessoa(Integer.parseInt(edit_id.getText().toString()));
         person.setNome(edit_nome.getText().toString());
         person.setEmail(edit_email.getText().toString());
         person.setIdade(edit_idade.getText().toString());
         person.setMatricula(edit_matricula.getText().toString());
-
+        if(byteArray!=null) {
+            Log.d("DC", "foto diferente de null");
+            person.setFoto(byteArray);
+        }
         if(PessoaVO.STORE_MODE.equals("DB")){
             if(person.getId_pessoa() > 0)
                 dao.updatePessoa(person);
             else
                 dao.insertPessoa(person);
         }
+        byteArray=null;
         finish();
 
     }
