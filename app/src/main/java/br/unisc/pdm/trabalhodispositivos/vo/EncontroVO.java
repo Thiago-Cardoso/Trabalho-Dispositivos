@@ -10,25 +10,30 @@ import java.text.DateFormat;
  */
 public class EncontroVO {
 
+    public static final String STORE_MODE = "DB";  //opcoes: DB ou WEB
+
        private int id_encontro;
-       private DateFormat data;
-       private Time hora;
+       private int id;
+       private String data;
+       private String hora;
        private String descricao;
        private int qtd;
 
-    public DateFormat getData() {
+
+
+    public String getData() {
         return data;
     }
 
-    public void setData(DateFormat data) {
+    public void setData(String data) {
         this.data = data;
     }
 
-    public Time getHora() {
+    public String getHora() {
         return hora;
     }
 
-    public void setHora(Time hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
 
@@ -54,5 +59,13 @@ public class EncontroVO {
 
     public void setQtd(int qtd) {
         this.qtd = qtd;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

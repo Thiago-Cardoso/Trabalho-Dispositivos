@@ -29,6 +29,7 @@ import br.unisc.pdm.trabalhodispositivos.vo.Variaveis;
 public class FormEvento extends ActionBarActivity implements EventoTela
 {
     private EventoDAO dao;
+    private EventoVO v;
     private TextView mDateDisplay,mDateDisplay_fim;
     private Button mPickDate,mPickDate_fim;
 
@@ -58,81 +59,7 @@ public class FormEvento extends ActionBarActivity implements EventoTela
                 populaTela(v);
             }
         }
-
-        // capture our View elements
-        mDateDisplay = (TextView) findViewById(R.id.dateDisplay);
-        mPickDate = (Button) findViewById(R.id.pickDate);
-
-        mDateDisplay_fim = (TextView) findViewById(R.id.dateDisplay_fim);
-        mPickDate_fim = (Button) findViewById(R.id.pickDate_fim);
-
-        // add a click listener to the button
-        mPickDate.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showDialog(DATE_DIALOG_ID);
-            }
-        });
-
-        // add a click listener to the button
-        mPickDate_fim.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showDialog(DATE_DIALOG_ID);
-            }
-        });
-
-
-        // get the current date
-        final Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
-
-        // display the current date (this method is below)
-        updateDisplay();
     }
-
-
-
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id) {
-            case DATE_DIALOG_ID:
-                return new DatePickerDialog(this,
-                        mDateSetListener,
-                        mYear, mMonth, mDay);
-        }
-        return null;
-    }
-
-    // updates the date we display in the TextView
-    private void updateDisplay() {
-        mDateDisplay.setText(
-                new StringBuilder()
-                        // Month is 0 based so add 1
-                        .append(mMonth + 1).append("-")
-                        .append(mDay).append("-")
-                        .append(mYear).append(" "));
-
-        mDateDisplay_fim.setText(
-                new StringBuilder()
-                        // Month is 0 based so add 1
-                        .append(mMonth + 1).append("-")
-                        .append(mDay).append("-")
-                        .append(mYear).append(" "));
-    }
-
-    // the callback received when the user "sets" the date in the dialog
-    private DatePickerDialog.OnDateSetListener mDateSetListener =
-            new DatePickerDialog.OnDateSetListener() {
-                public void onDateSet(DatePicker view, int year,
-                                      int monthOfYear, int dayOfMonth) {
-                    mYear = year;
-                    mMonth = monthOfYear;
-                    mDay = dayOfMonth;
-                    updateDisplay();
-                }
-            };
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -165,6 +92,11 @@ public class FormEvento extends ActionBarActivity implements EventoTela
        startActivity(new Intent(this,ListaPessoaEvento.class));
     }
 
+    public void AdicionarEncontro(View view)
+    {
+        startActivity(new Intent(this,FormEncontro.class));
+    }
+
     @Override
     public void popularView(List<EventoVO> values) {
 
@@ -176,29 +108,27 @@ public class FormEvento extends ActionBarActivity implements EventoTela
     public void populaTela(EventoVO v){
         EditText edit_id_evento = (EditText) findViewById(R.id.edit_id_evento);
         EditText edit_nome_evento = (EditText) findViewById(R.id.edit_nome_evento);
+        EditText edit_data_inicio = (EditText) findViewById(R.id.edit_data_inicio);
+        EditText edit_data_fim = (EditText) findViewById(R.id.edit_data_fim);
         edit_id_evento.setText(String.valueOf(v.getId_evento()));
         edit_nome_evento.setText(v.getNome());
+        edit_data_inicio.setText(v.getData_inicio());
+        edit_data_fim.setText(v.getData_fim());
     }
 
     public void insertOrEditEvento(){
         //Buscando dados de entrada digitados pelo usuário
         EditText edit_id_evento = (EditText) findViewById(R.id.edit_id_evento);
         EditText edit_nome_evento = (EditText) findViewById(R.id.edit_nome_evento);
+        EditText edit_data_inicio = (EditText) findViewById(R.id.edit_data_inicio);
+        EditText edit_data_fim = (EditText) findViewById(R.id.edit_data_fim);
 
         EventoVO evento = new EventoVO();
         if(edit_id_evento.getText().toString().length() > 0)
             evento.setId_evento(Integer.parseInt(edit_id_evento.getText().toString()));
         evento.setNome(edit_nome_evento.getText().toString());
-        Date data_inicio = Calendar.getInstance().getTime();
-        java.text.SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
-
-        String formattedCurrentDate_inicio = simpleDateFormat.format(data_inicio);
-        Date data_fim = Calendar.getInstance().getTime();
-        simpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
-        String formattedCurrentDate_fim = simpleDateFormat.format(data_fim);
-
-        evento.setData_inicio(data_inicio.toString());
-        evento.setData_fim(data_fim.toString());
+        evento.setData_inicio(edit_data_inicio.getText().toString());
+        evento.setData_fim(edit_data_fim.getText().toString());
 
         if(EventoVO.STORE_MODE.equals("DB")){
             if(evento.getId_evento() > 0) {

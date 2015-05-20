@@ -7,23 +7,23 @@
     android:orientation="vertical"
     tools:context="br.unisc.pdm.trabalhodispositivos.FormEncontro">
 
+    <TextView
+        android:text="@string/label_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:editable="false"
+        android:enabled="false"
+        android:id="@+id/edit_id_encontro" />
 
     <TextView
         android:text="@string/label_evento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <!-- Spinner Dropdown -->
-    <Spinner
-        android:id="@+id/spinner_p"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:prompt="@string/spinner_title"
-        android:layout_marginTop="20dip"
-        android:layout_marginLeft="8dip"
-        android:layout_marginRight="8dip"
-        />
 
     <TextView
         android:text="@string/label_descricao"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/edit_descricao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -40,54 +40,43 @@
     </EditText>
 
     <TextView
-        android:text="@string/label_data_inicio"
+        android:text="@string/label_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <TextView android:id="@+id/dateDisplay"
+    <EditText
+        android:layout_width="227dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:id="@+id/edit_data" />
+
+    <TextView
+        android:text="@string/label_hora"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:layout_width="227dp"
         android:layout_height="wrap_content"
-        android:text=""/>
-    <Button android:id="@+id/pickDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/change_date"/>
-    <LinearLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:id="@+id/linearLayout1">
+        android:inputType="textPersonName"
+        android:id="@+id/edit_time" />
 
-        <EditText android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtTime">
-        </EditText>
-
-        <Button android:layout_height="wrap_content"
-            android:layout_weight="0" android:id="@+id/btnTimePicker"
-            android:text="change_time" android:layout_width="100dp"></Button>
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_addEncontro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp"
-        android:text="ADD" />
-
-    <Button
-        android:id="@+id/getchoice"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Salvar"
-        />
-
-    <ListView
-        android:id="@+id/listView2"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ListView>
+        android:layout_height="65dp"
+        android:layout_gravity="center_horizontal">
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adicionar Encontro"
+            android:onClick="AdicionarEncontroForm"
+            android:id="@+id/btn_addPessoaForm"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
 
 </LinearLayout>
 

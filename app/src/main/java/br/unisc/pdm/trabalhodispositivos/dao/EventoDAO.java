@@ -7,11 +7,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.Toast;
-
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-
 import br.unisc.pdm.trabalhodispositivos.database.DadosContract;
 import br.unisc.pdm.trabalhodispositivos.database.DadosDbHelper;
 import br.unisc.pdm.trabalhodispositivos.vo.EventoVO;
@@ -27,6 +25,8 @@ public class EventoDAO {
     private String[] colunas = {
             DadosContract.Evento._ID,
             DadosContract.Evento.NOME,
+            DadosContract.Evento.DATA_FIM,
+            DadosContract.Evento.DATA_INICIO
     };
 
     public EventoDAO (Context context){
@@ -46,8 +46,8 @@ public class EventoDAO {
 
         ContentValues dadosEvento = new ContentValues();
         dadosEvento.put(DadosContract.Evento.NOME, v.getNome());
-        dadosEvento.put(DadosContract.Evento.DATA_INICIO, v.getData_inicio().toString());
-        dadosEvento.put(DadosContract.Evento.DATA_FIM, v.getData_inicio().toString());
+        dadosEvento.put(DadosContract.Evento.DATA_INICIO, v.getData_inicio());
+        dadosEvento.put(DadosContract.Evento.DATA_FIM, v.getData_fim());
 
         try {
             long newEventoId = database.insert(
@@ -91,6 +91,8 @@ public class EventoDAO {
         EventoVO evento = new EventoVO();
         evento.setId_evento(cursor.getInt(0));
         evento.setNome(cursor.getString(1));
+        evento.setData_fim(cursor.getString(2));
+        evento.setData_inicio(cursor.getString(3));
         return evento;
     }
 
@@ -135,6 +137,8 @@ public class EventoDAO {
     public void updateEvento(EventoVO v) {
         ContentValues dadosEvento= new ContentValues();
         dadosEvento.put(DadosContract.Evento.NOME,v.getNome());
+        dadosEvento.put(DadosContract.Evento.DATA_INICIO, v.getData_inicio());
+        dadosEvento.put(DadosContract.Evento.DATA_FIM, v.getData_fim());
 
         // Which row to update, based on the ID
         String selection = DadosContract.Evento._ID + " = ?";

@@ -17,6 +17,7 @@
     <string name="label_id">ID:</string>
     <string name="action_new_pessoa">Nova Pessoa</string>
     <string name="action_accept_pessoa">Salvar</string>
+    <string name="action_accept_encontro">Salvar</string>
     <string name="welcome">Bem vindo</string>
     <string name="title_activity_ver_pessoa">VerPessoa</string>
     <string name="action_edit_pessoa">Editar</string>
@@ -29,6 +30,7 @@
     <string name="label_data_inicio">Data Inicio</string>
     <string name="label_data_fim">Data fim</string>
     <string name="action_list_evento">Eventos</string>
+    <string name="action_list_relatorio">Relatorios</string>
     <string name="selecione">Selecione</string>
     <string name="change_date">Change the date</string>
     <string name="action_new_evento">Novo Evento</string>
@@ -40,4 +42,8 @@
     <string name="action_list_encontro">Lista Encontros</string>
     <string name="title_activity_form_encontro">Encontros</string>
     <string name="action_form_encontro">Encontros</string>
+    <string name="label_evento">Evento</string>
+    <string name="label_descricao">Descricao</string>
+    <string name="label_data">Data</string>
+    <string name="label_hora">Hora</string>
 </resources>

@@ -21,17 +21,6 @@
     </FrameLayout>
 
     <TextView
-        android:text="@string/label_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:editable="false"
-        android:enabled="false"
-        android:id="@+id/edit_id" />
-
-    <TextView
         android:text="@string/label_nome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

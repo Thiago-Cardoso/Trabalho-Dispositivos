@@ -31,7 +31,6 @@ import br.unisc.pdm.trabalhodispositivos.dao.PessoaDAO;
 import br.unisc.pdm.trabalhodispositivos.vo.EventoVO;
 import br.unisc.pdm.trabalhodispositivos.vo.PessoaVO;
 
-
 public class FormPessoa extends ActionBarActivity implements PessoaTela ,AdapterView.OnItemSelectedListener,BlankFragment.OnFragmentInteractionListener{
     private PessoaDAO dao;
     private EventoDAO daoEvent;

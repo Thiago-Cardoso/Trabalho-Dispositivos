@@ -48,8 +48,8 @@ public class VerEvento extends ActionBarActivity implements EventoTela{
         TextView ve_nome = (TextView) findViewById(R.id.ve_nome);
         ve_id.setText(String.valueOf(v.getId_evento()));
         ve_nome.setText(v.getNome());
-      //  ve_data_inicio.setText(v.getData_inicio().toString());
-        //ve_data_fim.setText(v.getData_fim().toString());
+        ve_data_inicio.setText(v.getData_inicio());
+        ve_data_fim.setText(v.getData_fim());
     }
 
 

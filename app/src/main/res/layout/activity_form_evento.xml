@@ -1,4 +1,3 @@
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -23,7 +22,7 @@
         android:layout_height="wrap_content" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="225dp"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:id="@+id/edit_nome_evento" />
@@ -33,36 +32,49 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <TextView android:id="@+id/dateDisplay"
-        android:layout_width="wrap_content"
+    <EditText
+        android:layout_width="227dp"
         android:layout_height="wrap_content"
-        android:text=""/>
-    <Button android:id="@+id/pickDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/change_date"/>
+        android:inputType="textPersonName"
+        android:id="@+id/edit_data_inicio" />
 
     <TextView
         android:text="@string/label_data_fim"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <TextView android:id="@+id/dateDisplay_fim"
-        android:layout_width="wrap_content"
+    <EditText
+        android:layout_width="229dp"
         android:layout_height="wrap_content"
-        android:text=""/>
+        android:inputType="textPersonName"
+        android:id="@+id/edit_data_fim" />
 
-    <Button android:id="@+id/pickDate_fim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/change_date"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_gravity="center_horizontal">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Adicionar Pessoa"
-        android:onClick="AdicionarPessoa"
-        android:id="@+id/btn_addPessoa" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adicionar Pessoa"
+            android:onClick="AdicionarPessoa"
+            android:id="@+id/btn_addPessoa"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adicionar Encontro"
+            android:onClick="AdicionarEncontro"
+            android:id="@+id/btn_addEncontro"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
 
 </LinearLayout>
 

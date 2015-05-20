@@ -12,6 +12,7 @@ public class PessoaVO {
     private String idade;
     private String matricula;
     private String email;
+    private byte[] foto;
 
     public String getNome() {
         return nome;
@@ -27,6 +28,14 @@ public class PessoaVO {
 
     public void setIdade(String idade) {
         this.idade = idade;
+    }
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
     }
 
     public String getMatricula() {

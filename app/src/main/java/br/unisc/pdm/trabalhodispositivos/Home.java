@@ -1,15 +1,37 @@
 package br.unisc.pdm.trabalhodispositivos;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.opencsv.CSVWriter;
+import com.opencsv.ResultSetHelper;
+
+import java.io.File;
+import java.io.FileWriter;
+
 import br.unisc.pdm.designcrud.R;
+import br.unisc.pdm.trabalhodispositivos.dao.EventoDAO;
+import br.unisc.pdm.trabalhodispositivos.database.DadosContract;
+import br.unisc.pdm.trabalhodispositivos.database.DadosDbHelper;
 
 
 public class Home extends ActionBarActivity {
+
+    private String[] colunas = {
+            DadosContract.Pessoa._ID,
+            DadosContract.Pessoa.NOME,
+            DadosContract.Pessoa.IDADE,
+            DadosContract.Pessoa.EMAIL,
+            DadosContract.Pessoa.MATRICULA,
+            DadosContract.Pessoa.BLOB,
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +71,38 @@ public class Home extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+
+        if (id == R.id.action_list_relatorio) {
+            Log.d("DC", "Inicio geracao de relatorio ");
+            String FILENAME = "log.csv";
+            File directoryDownload = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+            File logDir = new File(directoryDownload, FILENAME);
+            try {
+
+
+                DadosDbHelper mdb = new DadosDbHelper(this);
+                SQLiteDatabase database = mdb.getWritableDatabase();;
+                logDir.createNewFile();
+                CSVWriter csvWriter = new CSVWriter(new FileWriter(logDir));
+                    Cursor curCSV = database.query(DadosContract.Pessoa.TABLE_NAME,
+                colunas, null, null, null, null, null);
+                csvWriter.writeNext(curCSV.getColumnNames());
+                while (curCSV.moveToNext()) {
+                    String arrStr[] = { curCSV.getString(1)+ ",", curCSV.getString(2)+ ",",
+                            curCSV.getString(3)+","};
+                    csvWriter.writeNext(arrStr);
+                }
+                csvWriter.close();
+                curCSV.close();
+                return true;
+            } catch (Exception e) {
+                Log.e("MainActivity", e.getMessage(), e);
+
+            }
+            Log.d("DC", "Final geracao de relatorio ");
+
+        }
+
 
         return super.onOptionsItemSelected(item);
     }

@@ -3,8 +3,10 @@ package br.unisc.pdm.trabalhodispositivos;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,162 +27,47 @@ import java.util.Calendar;
 import java.util.List;
 
 import br.unisc.pdm.designcrud.R;
+import br.unisc.pdm.trabalhodispositivos.dao.EncontroDAO;
 import br.unisc.pdm.trabalhodispositivos.dao.EventoDAO;
+import br.unisc.pdm.trabalhodispositivos.vo.EncontroVO;
 import br.unisc.pdm.trabalhodispositivos.vo.EventoVO;
 
-public class FormEncontro extends ActionBarActivity implements AdapterView.OnItemSelectedListener,View.OnClickListener {
+public class FormEncontro extends ActionBarActivity implements AdapterView.OnItemSelectedListener{
 
-    private Button bt;
-    private ListView lv;
-    private ArrayList<String> strArr;
-    private ArrayAdapter<String> adapter;
-    private EditText et;
-    Spinner spinner;
+    private EncontroDAO daoncontro;
     private EventoDAO daoEvent;
-    Button getChoice;
-
-    private TextView mDateDisplay, txtTime;
-    private Button mPickDate , btnTimePicker;
-
-    private int mYear, mMonth, mDay, mHour, mMinute;
-
-    static final int DATE_DIALOG_ID = 0;
+    private TextView  txtTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_encontro);
-        bt = (Button) findViewById(R.id.btn_addEncontro);
-        lv = (ListView) findViewById(R.id.listView2);
-        et = (EditText) findViewById(R.id.editText1);
-        getChoice = (Button)findViewById(R.id.getchoice);
 
-        // capture our View elements
-        mDateDisplay = (TextView) findViewById(R.id.dateDisplay);
-        mPickDate = (Button) findViewById(R.id.pickDate);
-        btnTimePicker = (Button) findViewById(R.id.btnTimePicker);
-        txtTime = (EditText) findViewById(R.id.txtTime);
-        btnTimePicker.setOnClickListener(this);
+        Intent intent = getIntent();
+        int id = intent.getIntExtra("ID", 0);
+        Log.d("DC", "buscou o id " + id);
 
-        // add a click listener to the button
-        mPickDate.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showDialog(DATE_DIALOG_ID);
+        daoncontro = new EncontroDAO(this);
+        daoncontro.open();
+
+        if (id > 0) {
+            if (EncontroVO.STORE_MODE.equals("DB")) {
+                EncontroVO v = daoncontro.getEncontroId(id);
+                populaTela(v);
             }
-        });
-
-
-        // get the current date
-        final Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
-
-        // display the current date (this method is below)
-        updateDisplay();
-
-        // Spinner element
-        spinner = (Spinner) findViewById(R.id.spinner_p);
-
-        // Spinner click listener
-        spinner.setOnItemSelectedListener(this);
-
-        // Loading spinner data from database
-        loadSpinnerData();
-
-
-        strArr = new ArrayList<String>();
-        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_multiple_choice, strArr);
-        lv.setAdapter(adapter);
-        lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        getChoice.setOnClickListener(new Button.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-
-                String selected = "";
-
-                int cntChoice = lv.getCount();
-
-                SparseBooleanArray sparseBooleanArray = lv.getCheckedItemPositions();
-
-                for(int i = 0; i < cntChoice; i++){
-
-                    if(sparseBooleanArray.get(i)) {
-
-                        selected += lv.getItemAtPosition(i) + "\n";
-
-                    }
-                }
-                Toast.makeText(FormEncontro.this,
-
-                        selected,
-
-                        Toast.LENGTH_LONG).show();
-            }
-        });
-
-        bt.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                strArr.add(et.getText().toString());
-                adapter.notifyDataSetChanged();
-
-            }
-        });
-    }
-
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id) {
-            case DATE_DIALOG_ID:
-                return new DatePickerDialog(this,
-                        mDateSetListener,
-                        mYear, mMonth, mDay);
         }
-        return null;
-    }
-
-    // updates the date we display in the TextView
-    private void updateDisplay() {
-        mDateDisplay.setText(
-                new StringBuilder()
-                        // Month is 0 based so add 1
-                        .append(mMonth + 1).append("-")
-                        .append(mDay).append("-")
-                        .append(mYear).append(" "));
 
     }
 
-    // the callback received when the user "sets" the date in the dialog
-    private DatePickerDialog.OnDateSetListener mDateSetListener =
-            new DatePickerDialog.OnDateSetListener() {
-                public void onDateSet(DatePicker view, int year,
-                                      int monthOfYear, int dayOfMonth) {
-                    mYear = year;
-                    mMonth = monthOfYear;
-                    mDay = dayOfMonth;
-                    updateDisplay();
-                }
-            };
-
-    private void loadSpinnerData() {
-        daoEvent = new EventoDAO(this);
-        daoEvent.open();
-        List<EventoVO> lables = daoEvent.getAllEventos();
-
-        // Creating adapter for spinner
-        ArrayAdapter<EventoVO> dataAdapter = new ArrayAdapter<EventoVO>(this,
-                android.R.layout.simple_spinner_item, lables);
-
-        // Drop down layout style - list view with radio button
-        dataAdapter
-                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // attaching data adapter to spinner
-        spinner.setAdapter(dataAdapter);
+    public void populaTela(EncontroVO v){
+        EditText edit_descricao = (EditText) findViewById(R.id.edit_descricao);
+        EditText edit_data = (EditText) findViewById(R.id.edit_data);
+        EditText edit_time = (EditText) findViewById(R.id.edit_time);
+        edit_descricao.setText(String.valueOf(v.getDescricao()));
+        edit_data.setText(v.getData());
+        edit_time.setText(v.getHora());
     }
+
 
 
     @Override
@@ -197,12 +84,24 @@ public class FormEncontro extends ActionBarActivity implements AdapterView.OnIte
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        if(id == R.id.action_accept_encontro){
+            insertOrEditEncontro();
+            return true;
+        }
+
         if (id == R.id.action_settings) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void popularView(List<EncontroVO> values) {
+
+        populaTela(values.get(0));
+        Log.d("WBS", values.toString());
+        Toast.makeText(this, "Voltou.. populando!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -220,28 +119,30 @@ public class FormEncontro extends ActionBarActivity implements AdapterView.OnIte
 
     }
 
-    @Override
-    public void onClick(View v) {
+    public void insertOrEditEncontro(){
+        //Buscando dados de entrada digitados pelo usuário
+        EditText edit_id_encontro = (EditText) findViewById(R.id.edit_id_encontro);
+        EditText edit_descricao = (EditText) findViewById(R.id.edit_descricao);
+        EditText edit_data = (EditText) findViewById(R.id.edit_data);
+        EditText edit_time = (EditText) findViewById(R.id.edit_time);
 
-        if (v == btnTimePicker) {
+        EncontroVO encontro = new EncontroVO();
+        if(edit_id_encontro.getText().toString().length() > 0)
+            //encontro.setId_encontro(Integer.parseInt(edit_id_encontro.getText().toString()));
+        encontro.setId_encontro(1);
+        encontro.setDescricao(edit_descricao.getText().toString());
+        encontro.setData(edit_data.getText().toString());
+        encontro.setHora(edit_time.getText().toString());
 
-            // Process to get Current Time
-            final Calendar c = Calendar.getInstance();
-            mHour = c.get(Calendar.HOUR_OF_DAY);
-            mMinute = c.get(Calendar.MINUTE);
-
-            // Launch Time Picker Dialog
-            TimePickerDialog tpd = new TimePickerDialog(this,
-                    new TimePickerDialog.OnTimeSetListener() {
-
-                        @Override
-                        public void onTimeSet(TimePicker view, int hourOfDay,
-                                              int minute) {
-                            // Display Selected time in textbox
-                            txtTime.setText(hourOfDay + ":" + minute);
-                        }
-                    }, mHour, mMinute, false);
-            tpd.show();
+        if(EncontroVO.STORE_MODE.equals("DB")){
+            if(encontro.getId_encontro() > 0) {
+                daoncontro.insertEncontro(encontro);
+            }else {
+                daoncontro.updateEncontro(encontro);
+                //Toast.makeText(getApplicationContext(), formattedCurrentDate_inicio+"data", Toast.LENGTH_SHORT).show();
+            }
         }
+        finish();
+
     }
 }

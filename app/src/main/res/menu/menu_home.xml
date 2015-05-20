@@ -20,6 +20,11 @@
         android:icon="@drawable/ic_action_view_as_list"
         app:showAsAction="ifRoom" />
 
+    <item android:id="@+id/action_list_relatorio"
+        android:title="@string/action_list_relatorio"
+        android:icon="@drawable/ic_action_view_as_list"
+        app:showAsAction="ifRoom" />
+
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"

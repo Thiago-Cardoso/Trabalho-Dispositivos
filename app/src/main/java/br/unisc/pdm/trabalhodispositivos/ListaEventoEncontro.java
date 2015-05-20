@@ -3,6 +3,7 @@ package br.unisc.pdm.trabalhodispositivos;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +25,11 @@ public class ListaEventoEncontro extends ActionBarActivity implements EventoTela
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_evento_encontro);
+
+        Intent intent = getIntent();
+        int id = intent.getIntExtra("ID", 0);
+        Log.d("DC", "buscou o id " + id);
+        Toast.makeText(getBaseContext(), "buscou " + id, Toast.LENGTH_SHORT).show();
     }
 
     @Override

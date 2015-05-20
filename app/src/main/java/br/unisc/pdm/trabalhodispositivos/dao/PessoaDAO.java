@@ -52,6 +52,7 @@ public class PessoaDAO {
         dadosPessoa.put(DadosContract.Pessoa.IDADE,p.getIdade());
         dadosPessoa.put(DadosContract.Pessoa.EMAIL,p.getEmail());
         dadosPessoa.put(DadosContract.Pessoa.MATRICULA, p.getMatricula());
+        dadosPessoa.put(DadosContract.Pessoa.BLOB, p.getFoto());
 
         try {
             long newPessoaId = database.insert(
@@ -98,6 +99,7 @@ public class PessoaDAO {
         pessoa.setIdade(cursor.getString(2));
         pessoa.setEmail(cursor.getString(3));
         pessoa.setMatricula(cursor.getString(4));
+        pessoa.setFoto(cursor.getBlob(5));
         return pessoa;
     }
 
@@ -144,6 +146,7 @@ public class PessoaDAO {
         dadosPessoa.put(DadosContract.Pessoa.IDADE,p.getIdade());
         dadosPessoa.put(DadosContract.Pessoa.EMAIL,p.getEmail());
         dadosPessoa.put(DadosContract.Pessoa.MATRICULA,p.getMatricula());
+        dadosPessoa.put(DadosContract.Pessoa.BLOB,p.getFoto());
 
         // Which row to update, based on the ID
         String selection = DadosContract.Pessoa._ID + " = ?";
