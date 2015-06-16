@@ -33,9 +33,11 @@ public class FormEvento extends ActionBarActivity implements EventoTela
     private TextView mDateDisplay,mDateDisplay_fim;
     private Button mPickDate,mPickDate_fim;
 
+    private EditText edit_id_evento;
     private int mYear;
     private int mMonth;
     private int mDay;
+
 
     static final int DATE_DIALOG_ID = 0;
 
@@ -43,7 +45,7 @@ public class FormEvento extends ActionBarActivity implements EventoTela
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_evento);
-
+         edit_id_evento = (EditText) findViewById(R.id.edit_id_evento);
 
         Intent intent = getIntent();
         int id = intent.getIntExtra("ID", 0);
@@ -87,15 +89,13 @@ public class FormEvento extends ActionBarActivity implements EventoTela
         return super.onOptionsItemSelected(item);
     }
 
+    /*
     public void AdicionarPessoa(View view)
     {
        startActivity(new Intent(this,ListaPessoaEvento.class));
-    }
+        Variaveis.idEvendo=edit_id_evento.getText().toString();
 
-    public void AdicionarEncontro(View view)
-    {
-        startActivity(new Intent(this,FormEncontro.class));
-    }
+    }*/
 
     @Override
     public void popularView(List<EventoVO> values) {

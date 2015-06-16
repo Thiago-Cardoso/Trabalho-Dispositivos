@@ -15,21 +15,20 @@ import android.widget.Toast;
 import java.util.List;
 
 import br.unisc.pdm.designcrud.R;
+import br.unisc.pdm.trabalhodispositivos.dao.EncontroDAO;
 import br.unisc.pdm.trabalhodispositivos.dao.EventoDAO;
+import br.unisc.pdm.trabalhodispositivos.vo.EncontroVO;
 import br.unisc.pdm.trabalhodispositivos.vo.EventoVO;
 
-public class ListaEventoEncontro extends ActionBarActivity implements EventoTela{
-    private EventoDAO dao;
+public class ListaEventoEncontro extends ActionBarActivity implements EncontroTela{
+    private EncontroDAO dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_evento_encontro);
 
-        Intent intent = getIntent();
-        int id = intent.getIntExtra("ID", 0);
-        Log.d("DC", "buscou o id " + id);
-        Toast.makeText(getBaseContext(), "buscou " + id, Toast.LENGTH_SHORT).show();
+        popularList();
     }
 
     @Override
@@ -39,17 +38,17 @@ public class ListaEventoEncontro extends ActionBarActivity implements EventoTela
     }
 
     private void popularList(){
-        if(EventoVO.STORE_MODE.equals("DB"))
+        if(EncontroVO.STORE_MODE.equals("DB"))
         {
             popularListFromDB();
         }
     }
 
     private void popularListFromDB() {
-        dao = new EventoDAO(this);
+        dao = new EncontroDAO(this);
         dao.open();
 
-        List<EventoVO> values = dao.getAllEventos();
+        List<EncontroVO> values = dao.getAllEncontros();
         popularView(values);
     }
 
@@ -68,7 +67,7 @@ public class ListaEventoEncontro extends ActionBarActivity implements EventoTela
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.action_new_evento) {
+        if (id == R.id.action_accept_encontro) {
             startActivity(new Intent(this, FormEvento.class));
         }
 
@@ -81,21 +80,21 @@ public class ListaEventoEncontro extends ActionBarActivity implements EventoTela
     }
 
     @Override
-    public void popularView(List<EventoVO> values) {
-        ArrayAdapter<EventoVO> adapter = new ArrayAdapter<EventoVO>(this, android.R.layout.simple_list_item_1, values);
+    public void popularView(List<EncontroVO> values) {
+        ArrayAdapter<EncontroVO> adapter = new ArrayAdapter<EncontroVO>(this, android.R.layout.simple_list_item_1, values);
 
-        final ListView lista = (ListView) findViewById(R.id.lista_eventos_encontro);
+        final ListView lista = (ListView) findViewById(R.id.lista_eventos_encontro2);
 
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 
-                EventoVO v = (EventoVO) lista.getItemAtPosition(position);
+                EncontroVO v = (EncontroVO) lista.getItemAtPosition(position);
 
                 Intent intent = new Intent(getBaseContext(),VerEvento.class);
-                intent.putExtra("ID", v.getId_evento());
-                Toast.makeText(getBaseContext(), "Selecionado " + v.getNome(), Toast.LENGTH_SHORT).show();
+                intent.putExtra("ID", v.getId_encontro());
+                Toast.makeText(getBaseContext(), "Selecionado " + v.getDescricao(), Toast.LENGTH_SHORT).show();
 
                 startActivity(intent);
 

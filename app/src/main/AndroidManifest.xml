@@ -101,6 +101,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.unisc.pdm.trabalhodispositivos.Home" />
         </activity>
+        <activity
+            android:name="br.unisc.pdm.trabalhodispositivos.ListaPessoaEncontro"
+            android:label="@string/title_activity_lista_pessoa_encontro" >
+        </activity>
+        <activity
+            android:name="br.unisc.pdm.trabalhodispositivos.ver_encontro"
+            android:label="@string/title_activity_ver_encontro" >
+        </activity>
+        <activity
+            android:name="br.unisc.pdm.trabalhodispositivos.EncoderActivity"
+            android:label="@string/title_activity_encoder" >
+        </activity>
     </application>
 
 </manifest>

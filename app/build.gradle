@@ -32,4 +32,6 @@ dependencies {
     compile 'com.android:volley:1.+'
     compile files('C:/Users/Felipe/Desktop/Trabalho-Dispositivos-master/Trabalho-Dispositivos-master/Libs/opencsv-2.1-1.0.0-sources.jar')
     compile files('C:/Users/Diego/Downloads/Trabalho-Dispositivos2 (1)/Trabalho-Dispositivos2/Trabalho-Dispositivos/Libs2/opencsv-3.3.jar')
+    compile files('C:/Users/Thiago Cardoso/Downloads/Trabalho-Dispositivos (1)/Trabalho-Dispositivos/Libs2/opencsv-3.3.jar')
+    compile files('libs/core.jar')
 }

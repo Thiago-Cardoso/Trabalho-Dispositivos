@@ -1,25 +1,17 @@
 package br.unisc.pdm.trabalhodispositivos;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.opencsv.CSVWriter;
-import com.opencsv.ResultSetHelper;
-
 import java.io.File;
-import java.io.FileWriter;
 
 import br.unisc.pdm.designcrud.R;
-import br.unisc.pdm.trabalhodispositivos.dao.EventoDAO;
 import br.unisc.pdm.trabalhodispositivos.database.DadosContract;
-import br.unisc.pdm.trabalhodispositivos.database.DadosDbHelper;
 
 
 public class Home extends ActionBarActivity {
@@ -68,6 +60,14 @@ public class Home extends ActionBarActivity {
             startActivity(new Intent(this,FormEncontro.class));
         }
 
+        if (id == R.id.action_list_encontro) {
+            startActivity(new Intent(this,ListaEventoEncontro.class));
+        }
+
+        if (id == R.id.action_qr) {
+            startActivity(new Intent(this,EncoderActivity.class));
+        }
+
         if (id == R.id.action_settings) {
             return true;
         }
@@ -76,7 +76,7 @@ public class Home extends ActionBarActivity {
             Log.d("DC", "Inicio geracao de relatorio ");
             String FILENAME = "log.csv";
             File directoryDownload = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-            File logDir = new File(directoryDownload, FILENAME);
+            File logDir = new File(directoryDownload, FILENAME);/*
             try {
 
 
@@ -89,16 +89,17 @@ public class Home extends ActionBarActivity {
                 csvWriter.writeNext(curCSV.getColumnNames());
                 while (curCSV.moveToNext()) {
                     String arrStr[] = { curCSV.getString(1)+ ",", curCSV.getString(2)+ ",",
-                            curCSV.getString(3)+","};
+                            curCSV.getString(3)+""};
                     csvWriter.writeNext(arrStr);
                 }
                 csvWriter.close();
                 curCSV.close();
+                Toast.makeText(this, "Relatorio Inserido!", Toast.LENGTH_SHORT).show();
                 return true;
             } catch (Exception e) {
                 Log.e("MainActivity", e.getMessage(), e);
 
-            }
+            }*/
             Log.d("DC", "Final geracao de relatorio ");
 
         }

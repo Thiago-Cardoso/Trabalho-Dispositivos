@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="br.unisc.pdm.trabalhodispositivos.VerEvento">
+    tools:context="br.unisc.pdm.trabalhodispositivos.ver_encontro">
 
     <TextView
         android:id="@+id/ve_id"
@@ -12,49 +12,22 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/ve_nome"
+        android:id="@+id/ve_descricao"
         android:textSize="22dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/ve_data_inicio"
+        android:id="@+id/ve_data"
         android:textSize="22dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/ve_data_fim"
+        android:id="@+id/ve_hora"
         android:textSize="22dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/btn_apagar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="ApagarClick"
-        android:text="Apagar" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Adicionar Encontro"
-        android:onClick="AdicionarEncontro"
-        android:id="@+id/btn_addEncontro"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lista Encontro"
-        android:onClick="ListaEncontro"
-        android:id="@+id/btn_ListaEncontro"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"

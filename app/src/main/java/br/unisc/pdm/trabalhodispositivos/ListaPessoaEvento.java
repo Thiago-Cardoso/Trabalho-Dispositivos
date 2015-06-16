@@ -37,11 +37,19 @@ public class ListaPessoaEvento extends ActionBarActivity implements PessoaTela{
     private PessoaDAO dao;
     private EventoPessoaDAO evdao;
     Button getChoice;
+    static int idEvento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_pessoa_evento);
+
+        Intent intent = getIntent();
+        int idev = intent.getIntExtra("codigo", 0);
+        idEvento = idev;
+        // String nome = intent.getStringExtra("nome");
+        Log.d("DC", "buscou o id " + idEvento);
+
         popularList();
     }
     @Override
@@ -98,7 +106,6 @@ public class ListaPessoaEvento extends ActionBarActivity implements PessoaTela{
 
         getChoice = (Button)findViewById(R.id.getchoice);
 
-
         lista.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         lista.setAdapter(adapter);
@@ -108,7 +115,7 @@ public class ListaPessoaEvento extends ActionBarActivity implements PessoaTela{
             @Override
             public void onClick(View v) {
 
-                String selected = "";
+                int selected = 0;
 
                 int cntChoice = lista.getCount();
 
@@ -118,7 +125,7 @@ public class ListaPessoaEvento extends ActionBarActivity implements PessoaTela{
 
                     if(sparseBooleanArray.get(i)) {
 
-                        selected += lista.getItemAtPosition(i).toString() + "\n";
+                       // selected += lista.getItemAtPosition(i) + "\n";
 
                         salvaEventoPessoa(selected);
 
@@ -134,14 +141,13 @@ public class ListaPessoaEvento extends ActionBarActivity implements PessoaTela{
 
     }
 
-    private void salvaEventoPessoa(String selected){
+    private void salvaEventoPessoa(int selected){
         evdao = new EventoPessoaDAO(this);
         evdao.open();
         PessoaEventoVO pvo = new PessoaEventoVO();
         pvo.setFk_pessoa_id(selected);
-        pvo.setFk_evento_id(Integer.toString(Variaveis.evento_fk));
+        pvo.setFk_evento_id(idEvento);
         evdao.insertEvento(pvo);
-
     }
 
 }

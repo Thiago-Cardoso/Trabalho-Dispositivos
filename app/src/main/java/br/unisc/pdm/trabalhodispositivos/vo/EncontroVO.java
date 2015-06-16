@@ -68,4 +68,9 @@ public class EncontroVO {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public String toString(){
+        return id_encontro + " | " + descricao;
+    }
 }

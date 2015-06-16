@@ -62,12 +62,13 @@ public class EventoPessoaDAO {
         }
     }
 
+    /*
     public void deleteEvento(PessoaEventoVO evento) {
         String id = evento.getFk_evento_id();
         Log.d("DESIGNCRUD", "EventoPessoa deleted with id: " + id);
         database.delete(DadosContract.PessoaEvento.TABLE_NAME, DadosContract.PessoaEvento._ID + " = " + id, null);
         Toast.makeText(this.context, "Pessoa_Evento deletado com sucesso: " + id, Toast.LENGTH_SHORT).show();
-    }
+    }*/
 
     public PessoaEventoVO getPessoaById(int id) {
 
@@ -101,7 +102,7 @@ public class EventoPessoaDAO {
 
     private PessoaEventoVO cursorToEvento(Cursor cursor) {
         PessoaEventoVO evento = new PessoaEventoVO();
-        evento.setFk_evento_id(cursor.getString(0));
+        evento.setFk_evento_id(cursor.getInt(0));
         return evento;
     }
 /*

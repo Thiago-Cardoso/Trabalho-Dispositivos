@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Trabalho-Dispositivos.iml" filepath="$PROJECT_DIR$/Trabalho-Dispositivos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Trabalho-Dispositivos-73941-72590-72602.iml" filepath="$PROJECT_DIR$/Trabalho-Dispositivos-73941-72590-72602.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
     </modules>
   </component>
 </project>
-

@@ -16,12 +16,25 @@
 
     <item android:id="@+id/action_form_encontro"
         android:title="@string/action_form_encontro"
-        android:orderInCategory="22"
+        android:orderInCategory="23"
+        android:icon="@drawable/ic_action_view_as_list"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_list_encontro"
+        android:title="lista encontro"
+        android:orderInCategory="24"
         android:icon="@drawable/ic_action_view_as_list"
         app:showAsAction="ifRoom" />
 
     <item android:id="@+id/action_list_relatorio"
         android:title="@string/action_list_relatorio"
+        android:orderInCategory="25"
+        android:icon="@drawable/ic_action_view_as_list"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_qr"
+        android:title="Gerar Qrdcode"
+        android:orderInCategory="26"
         android:icon="@drawable/ic_action_view_as_list"
         app:showAsAction="ifRoom" />
 

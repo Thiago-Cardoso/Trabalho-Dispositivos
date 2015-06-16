@@ -8,8 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
+
 
 import br.unisc.pdm.designcrud.R;
 import br.unisc.pdm.trabalhodispositivos.dao.EventoDAO;
@@ -19,7 +21,7 @@ import br.unisc.pdm.trabalhodispositivos.vo.PessoaVO;
 
 public class VerEvento extends ActionBarActivity implements EventoTela{
     private EventoDAO dao;
-    private EventoVO v;
+    static EventoVO v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,43 @@ public class VerEvento extends ActionBarActivity implements EventoTela{
         }
     }
 
+    public void AdicionarEncontro(View view)
+    {
+
+        Intent intent = new Intent(getBaseContext(),FormEncontro.class);
+        intent.putExtra("codigo", v.getId_evento());
+        // 3. or you can add data to a bundle
+        Bundle extras = new Bundle();
+        extras.putString("nome", v.getNome());
+        // 4. add bundle to intent
+        intent.putExtras(extras);
+        Toast.makeText(getBaseContext(), "Selecionado " + v.getId_evento(), Toast.LENGTH_SHORT).show();
+
+        // 5. start the activity
+        startActivity(intent);
+    }
+
+
+    public void AdicionarPessoa(View view)
+    {
+
+        Intent intent = new Intent(getBaseContext(),ListaPessoaEvento.class);
+        intent.putExtra("codigo", v.getId_evento());
+        // 3. or you can add data to a bundle
+        Bundle extras = new Bundle();
+        extras.putString("nome", v.getNome());
+        // 4. add bundle to intent
+        intent.putExtras(extras);
+        Toast.makeText(getBaseContext(), "Selecionado " + v.getNome(), Toast.LENGTH_SHORT).show();
+
+        // 5. start the activity
+        startActivity(intent);
+    }
+
+    public void ListaEncontro(View view)
+    {
+        startActivity(new Intent(this, ListaEventoEncontro.class));
+    }
 
 
     @Override

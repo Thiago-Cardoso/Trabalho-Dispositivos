@@ -37,14 +37,17 @@ public class FormEncontro extends ActionBarActivity implements AdapterView.OnIte
     private EncontroDAO daoncontro;
     private EventoDAO daoEvent;
     private TextView  txtTime;
-
+    static int idEvento;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_encontro);
 
         Intent intent = getIntent();
+        int idev = intent.getIntExtra("codigo", 0);
         int id = intent.getIntExtra("ID", 0);
+        idEvento = idev;
+       // String nome = intent.getStringExtra("nome");
         Log.d("DC", "buscou o id " + id);
 
         daoncontro = new EncontroDAO(this);
@@ -56,19 +59,18 @@ public class FormEncontro extends ActionBarActivity implements AdapterView.OnIte
                 populaTela(v);
             }
         }
-
     }
 
     public void populaTela(EncontroVO v){
+        EditText edit_id_encontro = (EditText) findViewById(R.id.edit_id_encontro);
         EditText edit_descricao = (EditText) findViewById(R.id.edit_descricao);
         EditText edit_data = (EditText) findViewById(R.id.edit_data);
         EditText edit_time = (EditText) findViewById(R.id.edit_time);
+        edit_id_encontro.setText(String.valueOf(v.getId_encontro()));
         edit_descricao.setText(String.valueOf(v.getDescricao()));
         edit_data.setText(v.getData());
         edit_time.setText(v.getHora());
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,14 +98,6 @@ public class FormEncontro extends ActionBarActivity implements AdapterView.OnIte
         return super.onOptionsItemSelected(item);
     }
 
-
-    public void popularView(List<EncontroVO> values) {
-
-        populaTela(values.get(0));
-        Log.d("WBS", values.toString());
-        Toast.makeText(this, "Voltou.. populando!", Toast.LENGTH_SHORT).show();
-    }
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // On selecting a spinner item
@@ -129,13 +123,15 @@ public class FormEncontro extends ActionBarActivity implements AdapterView.OnIte
         EncontroVO encontro = new EncontroVO();
         if(edit_id_encontro.getText().toString().length() > 0)
             //encontro.setId_encontro(Integer.parseInt(edit_id_encontro.getText().toString()));
-        encontro.setId_encontro(1);
+        encontro.setId_encontro(Integer.parseInt(edit_id_encontro.getText().toString()));
+       // evento.setId_evento(Integer.parseInt(edit_id_evento.getText().toString()));
+        encontro.setId(idEvento);
         encontro.setDescricao(edit_descricao.getText().toString());
         encontro.setData(edit_data.getText().toString());
         encontro.setHora(edit_time.getText().toString());
 
         if(EncontroVO.STORE_MODE.equals("DB")){
-            if(encontro.getId_encontro() > 0) {
+            if(encontro.getId() > 0) {
                 daoncontro.insertEncontro(encontro);
             }else {
                 daoncontro.updateEncontro(encontro);

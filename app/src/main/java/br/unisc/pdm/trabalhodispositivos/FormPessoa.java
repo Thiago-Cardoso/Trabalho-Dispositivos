@@ -165,13 +165,21 @@ public class FormPessoa extends ActionBarActivity implements PessoaTela ,Adapter
         edit_email.setText(p.getEmail());
         edit_idade.setText(p.getIdade());
         edit_matricula.setText(p.getMatricula());
-        //if(p.getFoto()!=null) {
-          //  Bitmap bmp = BitmapFactory.decodeByteArray(p.getFoto(), 0, p.getFoto().length);
-           // if(bmp!=null){
-           //     fragment.SetImage(bmp);
+       // fragment = new BlankFragment();
 
-           // }
-      //  }
+        /*android.app.FragmentManager fm = this.getFragmentManager();
+
+        FragmentTransaction _trans = fm.beginTransaction();
+        _trans.replace(R.id.FrameLayoutFragment, fragment);
+        _trans.commit();
+
+        if(p.getFoto()!=null) {
+            Bitmap bmp = BitmapFactory.decodeByteArray(p.getFoto(), 0, p.getFoto().length);
+            if(bmp!=null){
+                fragment.SetImage(bmp);
+
+            }}
+      */
     }
 
     public void insertOrEditPerson(){

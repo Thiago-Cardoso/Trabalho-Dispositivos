@@ -58,6 +58,8 @@ public class ListaEvento extends ActionBarActivity implements EventoTela {
 
                 Intent intent = new Intent(getBaseContext(),VerEvento.class);
                 intent.putExtra("ID", v.getId_evento());
+                Toast.makeText(getBaseContext(), "Selecionado " + v.getId_evento(), Toast.LENGTH_SHORT).show();
+                /*
                 if(v.getData_inicio() != null)
                 {
                     Toast.makeText(getBaseContext(), "buscou a data inicioo " + v.getData_inicio(), Toast.LENGTH_SHORT).show();
@@ -66,7 +68,7 @@ public class ListaEvento extends ActionBarActivity implements EventoTela {
                     Toast.makeText(getBaseContext(), "buscou a data i " + v.getData_inicio(), Toast.LENGTH_SHORT).show();
                 }
                 Toast.makeText(getBaseContext(), "Selecionado " + v.getNome(), Toast.LENGTH_SHORT).show();
-
+                */
                 startActivity(intent);
 
             }
